@@ -1,33 +1,10 @@
 from rest_framework.viewsets import ModelViewSet
-from recipes.models import Coffee, Recipe, Roast, Event, Note
-from public_api.serializers import CoffeeSerializer, RecipeSerializer, RoastSerializer, EventSerializer, NoteSerializer
+from public_api.serializers import UserSerializer
+from public_api.permissions import UserPermission
+from accounts.models import User
 
 
-class CoffeeViewSet(ModelViewSet):
-    model = Coffee
-    serializer_class = CoffeeSerializer
-    queryset = Coffee.objects.all()
-
-
-class RecipeViewSet(ModelViewSet):
-    model = Recipe
-    serializer_class = RecipeSerializer
-    queryset = Recipe.objects.all()
-
-
-class RoastViewSet(ModelViewSet):
-    model = Roast
-    serializer_class = RoastSerializer
-    queryset = Roast.objects.all()
-
-
-class EventViewSet(ModelViewSet):
-    model = Event
-    serializer_class = EventSerializer
-    queryset = Event.objects.all()
-
-
-class NoteViewSet(ModelViewSet):
-    model = Note
-    serializer_class = NoteSerializer
-    queryset = Note.objects.all()
+class UserViewSet(ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [UserPermission]

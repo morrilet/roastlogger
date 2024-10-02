@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from public_api.urls import urlpatterns as api_urls
+from public_api.urls import urlpatterns as public_api_urls
+from gated_api.urls import urlpatterns as gated_api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(api_urls))
+    path('api/', include(public_api_urls)),
+    path('api/', include(gated_api_urls)),
 ]

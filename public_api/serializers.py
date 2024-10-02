@@ -1,32 +1,19 @@
 from rest_framework.serializers import ModelSerializer
-from recipes.models import Coffee, Recipe, Roast, Event, Note
+from accounts.models import User
 
-class CoffeeSerializer(ModelSerializer):
+
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Coffee
-        fields = "__all__"
+        model = User
+        queryset = User.objects.all()
+        fields = ('username', 'email', 'password')
 
+    def create(self, validated_data):
+        password = validated_data['password']
+        del validated_data['password']
 
-class RecipeSerializer(ModelSerializer):
-    class Meta:
-        model = Recipe
-        fields = "__all__"
-
-
-class RoastSerializer(ModelSerializer):
-    class Meta:
-        model = Roast
-        fields = "__all__"
-
-
-class EventSerializer(ModelSerializer):
-    class Meta:
-        model = Event
-        fields = "__all__"
-
-
-class NoteSerializer(ModelSerializer):
-    class Meta:
-        model = Note
-        fields = "__all__"
+        user = User(**validated_data)
+        user.set_password(password)
+        user.save()
         
+        return user
