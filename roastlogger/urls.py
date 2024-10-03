@@ -21,6 +21,7 @@ from gated_api.urls import urlpatterns as gated_api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls'))
     path('api/', include(public_api_urls)),
     path('api/', include(gated_api_urls)),
 ]
